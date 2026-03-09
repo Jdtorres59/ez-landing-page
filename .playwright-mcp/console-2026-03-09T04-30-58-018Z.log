@@ -1,0 +1,1 @@
+[    1410ms] [WARNING] Image with src "/media/projects/posters/AstroNova.png" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297

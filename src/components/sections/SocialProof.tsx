@@ -1,13 +1,11 @@
 "use client";
 
 import { CounterBadge } from "@/components/ui/CounterBadge";
-
-const stats = [
-  { target: 847, label: "en lista de espera", prefix: "🔥 ", suffix: "+" },
-  { target: 2, label: "países · Colombia & México", prefix: "📍 ", suffix: "" },
-];
+import { useWaitlistCount } from "@/hooks/useWaitlistCount";
 
 export function SocialProof() {
+  const waitlistCount = useWaitlistCount();
+
   return (
     <section
       className="py-12 border-y"
@@ -18,15 +16,18 @@ export function SocialProof() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-20">
-          {stats.map((s, i) => (
-            <CounterBadge
-              key={i}
-              target={s.target}
-              label={s.label}
-              prefix={s.prefix}
-              suffix={s.suffix}
-            />
-          ))}
+          <CounterBadge
+            target={waitlistCount}
+            label="en lista de espera"
+            prefix="🔥 "
+            suffix="+"
+          />
+          <CounterBadge
+            target={2}
+            label="países · Colombia & México"
+            prefix="📍 "
+            suffix=""
+          />
           <div className="text-center">
             <p
               className="text-4xl font-bold text-ez-gold"

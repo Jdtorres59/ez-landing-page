@@ -100,7 +100,7 @@ export function FooterCTA() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <WaitlistForm onSuccess={(pos) => setModalPosition(pos)} />
+          <WaitlistForm />
         </motion.div>
       </div>
 

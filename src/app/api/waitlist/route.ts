@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         alreadyRegistered: true,
         position: existing.position,
         referralCode: existing.referral_code,
-        referralUrl: `${process.env.NEXT_PUBLIC_APP_URL}?ref=${existing.referral_code}`,
+        referralUrl: `https://ezapp.tech?ref=${existing.referral_code}`,
       })
     }
 
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
-    const referralUrl = `${process.env.NEXT_PUBLIC_APP_URL}?ref=${referralCode}`
+    const referralUrl = `https://ezapp.tech?ref=${referralCode}`
 
     // Enviar email de confirmación
     console.log('[Resend] Iniciando envío de email a:', emailLower)

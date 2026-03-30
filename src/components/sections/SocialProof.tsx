@@ -23,13 +23,7 @@ export function SocialProof() {
             suffix="+"
           />
           <div className="text-center">
-            <p
-              className="text-4xl font-bold text-ez-gold"
-              style={{ fontFamily: "var(--font-syne)" }}
-            >
-              📍 Colombia
-            </p>
-            <p className="text-sm text-slate-400 mt-1">Hecha para aquí</p>
+            <p className="text-4xl">🇨🇴</p>
           </div>
           <div className="text-center">
             <p

@@ -17,8 +17,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "EZ — Aprende finanzas. Gana en la vida.",
   icons: {
-    icon: "/EZ_logo_transparent_v4.png",
-    apple: "/EZ_logo_transparent_v4.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: "/favicon.png",
   },
   description:
     "La app de educación financiera gamificada para jóvenes colombianos. Aprende a manejar tu plata, invertir y construir tu futuro — sin aburrirte.",

@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
     try {
       const emailResult = await resend.emails.send({
-        from: 'EZ <onboarding@resend.dev>',
+        from: 'EZ <waitlist@ezapp.tech>',
         to: emailLower,
         subject: `🐂 ¡Bienvenido a la manada! Estás en el puesto #${newEntry.position}`,
         html: getConfirmationEmailHtml({

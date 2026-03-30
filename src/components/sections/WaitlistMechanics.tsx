@@ -215,7 +215,7 @@ export function WaitlistMechanics() {
           </div>
 
           {/* Share buttons */}
-          <div className="flex gap-3 justify-center">
+          <div className="flex flex-wrap gap-3 justify-center">
             <a
               href={`https://wa.me/?text=${SHARE_TEXT}%20${encodeURIComponent(REF_LINK)}`}
               target="_blank"

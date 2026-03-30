@@ -91,7 +91,7 @@ export function AppShowcase() {
           transition={{ delay: 0.5 }}
           className="text-center text-xs text-slate-500 mt-12"
         >
-          Prototipo funcional · Lanzamiento Q2 2025
+          Prototipo funcional · Lanzamiento abril 2026
         </motion.p>
       </div>
     </section>

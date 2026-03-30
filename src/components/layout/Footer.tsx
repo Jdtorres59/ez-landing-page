@@ -12,7 +12,7 @@ export function Footer() {
           EZ
         </p>
         <p className="text-xs text-slate-500 text-center">
-          © 2025 EZ. Todos los derechos reservados. · Hecho con ❤️ para Colombia.
+          © 2026 EZ. Todos los derechos reservados. · Hecho con ❤️ para Colombia.
         </p>
         <div className="flex gap-6">
           <a href="#" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">

@@ -7,7 +7,7 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
   {
     q: "¿Cuándo lanza EZ?",
-    a: "Planeamos lanzar en Q2 2025. Los primeros en la lista de espera tendrán acceso beta antes que nadie. ¡Inscríbete ahora para no perderte nada!",
+    a: "Lanzamos en abril de 2026, empezando con iPhone en Colombia. Los primeros en la lista de espera tendrán acceso beta antes que nadie. ¡Inscríbete ahora para no perderte nada!",
   },
   {
     q: "¿EZ es gratis?",
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "¿Solo es para Colombia?",
-    a: "Arrancamos con Colombia — el contenido está 100% adaptado a la realidad financiera local: pesos, CDTs, Colpensiones, fondos de inversión. Luego expandimos a México y más países de LATAM.",
+    a: "Arrancamos con Colombia — el contenido está 100% adaptado a la realidad financiera local: pesos, CDTs, Colpensiones, fondos de inversión. En el futuro expandimos a más países de LATAM.",
   },
   {
     q: "¿Mis datos financieros están seguros?",

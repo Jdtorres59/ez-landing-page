@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       const emailResult = await resend.emails.send({
         from: 'EZ <onboarding@resend.dev>',
         to: emailLower,
-        subject: `¡Bienvenido a EZ! Eres el #${newEntry.position} en la lista 🔥`,
+        subject: `🐂 ¡Bienvenido a la manada! Estás en el puesto #${newEntry.position}`,
         html: getConfirmationEmailHtml({
           position: newEntry.position,
           referralCode,
@@ -120,15 +120,21 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET: obtener contador público
+// GET: obtener contador público + desglose por tier
 export async function GET() {
   try {
-    const { count } = await supabaseAdmin
-      .from('waitlist')
-      .select('*', { count: 'exact', head: true })
+    const [totalResult, top100Result, top500Result] = await Promise.all([
+      supabaseAdmin.from('waitlist').select('*', { count: 'exact', head: true }),
+      supabaseAdmin.from('waitlist').select('*', { count: 'exact', head: true }).lte('position', 100),
+      supabaseAdmin.from('waitlist').select('*', { count: 'exact', head: true }).lte('position', 500),
+    ])
 
-    return NextResponse.json({ count: count ?? 0 })
+    return NextResponse.json({
+      count: totalResult.count ?? 0,
+      top100Count: top100Result.count ?? 0,
+      top500Count: top500Result.count ?? 0,
+    })
   } catch {
-    return NextResponse.json({ count: 847 })
+    return NextResponse.json({ count: 0, top100Count: null, top500Count: null })
   }
 }

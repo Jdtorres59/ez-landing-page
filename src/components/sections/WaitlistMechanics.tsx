@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, MessageCircle, Instagram, Twitter } from "lucide-react";
 
@@ -11,7 +11,7 @@ const tiers = [
     color: "#F59E0B",
     border: "rgba(245,158,11,0.4)",
     bg: "rgba(245,158,11,0.08)",
-    perks: ["Acceso beta exclusivo", "Badge dorado en la app", "Mención en redes EZ"],
+    perks: ["3 meses de premium gratis", "Toro Dorado exclusivo en tu perfil", "Grupo de WhatsApp directo con los fundadores"],
   },
   {
     rank: "Top 500",
@@ -19,7 +19,7 @@ const tiers = [
     color: "#3B82F6",
     border: "rgba(59,130,246,0.4)",
     bg: "rgba(59,130,246,0.08)",
-    perks: ["Acceso anticipado", "Badge azul especial", "Mes premium gratis"],
+    perks: ["1 mes de premium gratis", "Toro Dorado exclusivo en tu perfil", "Acceso anticipado al lanzamiento"],
   },
   {
     rank: "Lista general",
@@ -27,7 +27,7 @@ const tiers = [
     color: "#64748B",
     border: "rgba(100,116,139,0.3)",
     bg: "rgba(100,116,139,0.05)",
-    perks: ["Acceso al lanzamiento", "Notificación prioritaria", "Contenido exclusivo"],
+    perks: ["Acceso al lanzamiento", "Badge 'Fundador' en tu perfil", "Multiplicador 1.1x XP para siempre"],
   },
 ];
 
@@ -35,8 +35,41 @@ const REF_CODE = "EZ2025";
 const REF_LINK = `https://ez.app/waitlist?ref=${REF_CODE}`;
 const SHARE_TEXT = encodeURIComponent("¡Únete a EZ, la app de educación financiera para jóvenes colombianos! 🚀💸");
 
+type TierCounts = {
+  top100Remaining: number;
+  top500Remaining: number;
+};
+
+function useTierCounts(): TierCounts | null {
+  const [counts, setCounts] = useState<TierCounts | null>(null);
+
+  useEffect(() => {
+    async function fetchCounts() {
+      try {
+        const res = await fetch("/api/waitlist");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.top100Count === null || data.top500Count === null) return;
+        setCounts({
+          top100Remaining: Math.max(0, 100 - data.top100Count),
+          top500Remaining: Math.max(0, 500 - data.top500Count),
+        });
+      } catch {
+        // No mostrar nada si falla
+      }
+    }
+
+    fetchCounts();
+    const interval = setInterval(fetchCounts, 30_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return counts;
+}
+
 export function WaitlistMechanics() {
   const [copied, setCopied] = useState(false);
+  const tierCounts = useTierCounts();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(REF_LINK);
@@ -62,9 +95,49 @@ export function WaitlistMechanics() {
             <span className="text-ez-gold">Gana más.</span>
           </h2>
           <p className="text-slate-400 max-w-md mx-auto">
-            Refiere amigos y sube en la lista. Los primeros 100 reciben acceso beta exclusivo.
+          Refiere amigos y sube en la lista. Los primeros 100 reciben 3 meses de premium gratis y acceso directo a los fundadores.
           </p>
         </motion.div>
+
+        {/* Contador de cupos por tier */}
+        {tierCounts && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-10 text-sm text-slate-400"
+          >
+            <span>
+              👑{" "}
+              {tierCounts.top100Remaining === 0 ? (
+                <span className="font-semibold text-slate-500">Tier completo 🔒</span>
+              ) : (
+                <>
+                  Quedan{" "}
+                  <span className="font-bold" style={{ color: "#F59E0B" }}>
+                    {tierCounts.top100Remaining}
+                  </span>{" "}
+                  cupos para el Toro Dorado
+                </>
+              )}
+            </span>
+            <span className="hidden sm:block text-slate-600">·</span>
+            <span>
+              🥇{" "}
+              {tierCounts.top500Remaining === 0 ? (
+                <span className="font-semibold text-slate-500">Tier completo 🔒</span>
+              ) : (
+                <>
+                  Quedan{" "}
+                  <span className="font-bold" style={{ color: "#3B82F6" }}>
+                    {tierCounts.top500Remaining}
+                  </span>{" "}
+                  cupos Top 500
+                </>
+              )}
+            </span>
+          </motion.div>
+        )}
 
         {/* Tiers */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">

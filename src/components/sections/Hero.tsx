@@ -222,7 +222,7 @@ function BadgePill() {
         }}
       >
         <Sparkles className="w-3 h-3" />
-        Lanzamiento Q2 2025 · Colombia
+        Lanzamiento abril 2026 · Colombia
       </span>
     </motion.div>
   );

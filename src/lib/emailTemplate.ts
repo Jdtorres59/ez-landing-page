@@ -1,13 +1,12 @@
 export function getConfirmationEmailHtml({
   position,
   referralCode,
-  appUrl,
+  referralUrl,
 }: {
   position: number
   referralCode: string
-  appUrl: string
+  referralUrl: string
 }) {
-  const referralUrl = `${appUrl}?ref=${referralCode}`
 
   const whatsappText = encodeURIComponent(
     `Acabo de unirme al waitlist de EZ App 🐂 ¿Tú en qué puesto estás? ${referralUrl}`

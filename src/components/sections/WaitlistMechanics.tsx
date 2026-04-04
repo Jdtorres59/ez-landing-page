@@ -31,8 +31,6 @@ const tiers = [
   },
 ];
 
-const REF_CODE = "EZ2025";
-const REF_LINK = `https://ez.app/waitlist?ref=${REF_CODE}`;
 const SHARE_TEXT = encodeURIComponent("¡Únete a EZ, la app de educación financiera para jóvenes colombianos! 🚀💸");
 
 type TierCounts = {
@@ -69,10 +67,17 @@ function useTierCounts(): TierCounts | null {
 
 export function WaitlistMechanics() {
   const [copied, setCopied] = useState(false);
+  const [refLink, setRefLink] = useState<string | null>(null);
   const tierCounts = useTierCounts();
 
+  useEffect(() => {
+    const stored = localStorage.getItem("ez_referral_url");
+    if (stored) setRefLink(stored);
+  }, []);
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(REF_LINK);
+    if (!refLink) return;
+    navigator.clipboard.writeText(refLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -199,10 +204,13 @@ export function WaitlistMechanics() {
             className="flex items-center gap-3 p-4 rounded-xl mb-6"
             style={{ background: "rgba(7,14,26,0.6)", border: "1px solid rgba(59,130,246,0.2)" }}
           >
-            <span className="flex-1 text-sm text-slate-300 font-mono truncate">{REF_LINK}</span>
+            <span className="flex-1 text-sm font-mono truncate" style={{ color: refLink ? "#CBD5E1" : "#475569" }}>
+              {refLink ?? "Regístrate arriba para obtener tu link"}
+            </span>
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200"
+              disabled={!refLink}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
               style={{
                 background: copied ? "rgba(16,185,129,0.2)" : "rgba(37,99,235,0.2)",
                 border: `1px solid ${copied ? "rgba(16,185,129,0.4)" : "rgba(37,99,235,0.4)"}`,
@@ -217,11 +225,12 @@ export function WaitlistMechanics() {
           {/* Share buttons */}
           <div className="flex flex-wrap gap-3 justify-center">
             <a
-              href={`https://wa.me/?text=${SHARE_TEXT}%20${encodeURIComponent(REF_LINK)}`}
+              href={refLink ? `https://wa.me/?text=${SHARE_TEXT}%20${encodeURIComponent(refLink)}` : undefined}
+              onClick={!refLink ? (e) => e.preventDefault() : undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-white transition-all hover:scale-105"
-              style={{ background: "rgba(37,211,102,0.15)", border: "1px solid rgba(37,211,102,0.3)" }}
+              style={{ background: "rgba(37,211,102,0.15)", border: "1px solid rgba(37,211,102,0.3)", opacity: refLink ? 1 : 0.4 }}
             >
               <MessageCircle className="w-4 h-4 text-green-400" />
               WhatsApp
@@ -237,11 +246,12 @@ export function WaitlistMechanics() {
               Instagram
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?text=${SHARE_TEXT}%20${encodeURIComponent(REF_LINK)}`}
+              href={refLink ? `https://twitter.com/intent/tweet?text=${SHARE_TEXT}%20${encodeURIComponent(refLink)}` : undefined}
+              onClick={!refLink ? (e) => e.preventDefault() : undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-white transition-all hover:scale-105"
-              style={{ background: "rgba(29,161,242,0.15)", border: "1px solid rgba(29,161,242,0.3)" }}
+              style={{ background: "rgba(29,161,242,0.15)", border: "1px solid rgba(29,161,242,0.3)", opacity: refLink ? 1 : 0.4 }}
             >
               <Twitter className="w-4 h-4 text-sky-400" />
               Twitter

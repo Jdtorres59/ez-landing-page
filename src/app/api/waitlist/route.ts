@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
         html: getConfirmationEmailHtml({
           position: newEntry.position,
           referralCode,
-          appUrl: process.env.NEXT_PUBLIC_APP_URL!,
+          referralUrl,
         }),
       })
       console.log('[Resend] Resultado:', JSON.stringify(emailResult))

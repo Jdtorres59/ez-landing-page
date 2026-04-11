@@ -183,7 +183,7 @@ export function WaitlistForm({
         Sin spam. Sin tarjeta de crédito. Solo el futuro financiero que mereces.
       </p>
       <p
-        className="mt-2 text-center"
+        className="mt-2"
         style={{ fontSize: "11px", color: "#4A5568", fontFamily: "var(--font-dm-sans)" }}
       >
         Al registrarme acepto la{" "}

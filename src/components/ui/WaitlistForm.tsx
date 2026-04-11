@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Loader2, Copy, Check } from "lucide-react";
+import Link from "next/link";
 import { getReferralFromUrl } from "@/lib/referral";
 
 interface WaitlistFormProps {
@@ -180,6 +181,28 @@ export function WaitlistForm({
       )}
       <p className="mt-3 text-xs text-slate-500">
         Sin spam. Sin tarjeta de crédito. Solo el futuro financiero que mereces.
+      </p>
+      <p
+        className="mt-2 text-center"
+        style={{ fontSize: "11px", color: "#4A5568", fontFamily: "var(--font-dm-sans)" }}
+      >
+        Al registrarme acepto la{" "}
+        <Link
+          href="/privacy"
+          className="underline underline-offset-2 transition-colors hover:text-slate-300"
+          style={{ color: "inherit" }}
+        >
+          política de tratamiento de datos
+        </Link>{" "}
+        y los{" "}
+        <Link
+          href="/terms"
+          className="underline underline-offset-2 transition-colors hover:text-slate-300"
+          style={{ color: "inherit" }}
+        >
+          términos de uso
+        </Link>
+        .
       </p>
     </form>
   );
